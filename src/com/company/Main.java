@@ -60,18 +60,10 @@ public class Main {
             }
 
         }
-        System.out.println("You have won the game!");
-
-/*
-        int enemyNextMove = obj.enemyChoice();
-        if (enemyNextMove == 1){
-            obj.enemyMoveForward(enemyPosition);
-        } else if(enemyNextMove == 2){
-            obj.enemyAttack(enemyPosition); // lav en en methode til attack
-        } else if(enemyNextMove == 3){
-            obj.enemyBackOff(enemyPosition); // lav en methode til at trække tilbage
+        for (int i = 0; i<5; i++){
+            System.out.println(".................");
         }
-*/
+        System.out.println("You have won the game!");
     }
 
     public int throwDice() {
