@@ -44,10 +44,21 @@ public class Main {
                 playerFirePower = obj.attackFirePower(playerFirePower);
                 enemySoldier = obj.attack(playerPosition, enemyPosition, enemySoldier, playerFirePower); // lav en en methode til attack
             } else if (nextMove == 'b') {
-                playerFirePower =
+                playerFirePower += 250;
                 playerPosition = obj.backOff(playerPosition); // lav en methode til at trække tilbage
             }
             System.out.println("\n\n\n");
+            int nextEnemyMove = obj.enemyChoice();
+            if (nextEnemyMove == 1) {
+                enemyPosition = obj.enemyMoveForward(enemyPosition);
+            } else if (nextEnemyMove == 2) {
+                enemyFirePower = obj.attackFirePower(enemyFirePower);
+                playerSoldier = obj.attack(enemyPosition, playerPosition, playerSoldier, enemyFirePower); // lav en en methode til attack
+            } else if (nextEnemyMove == 3) {
+                enemyFirePower += 250;
+                enemyPosition = obj.backOff(enemyPosition);
+            }
+
         }
         System.out.println("You have won the game!");
 
@@ -133,13 +144,46 @@ public class Main {
 
 
     }
+    public int Enemyattack(int currentPosition, int enemyPosition, int enemySoldier, int playerFirePower) {
+        int currentEnemySoldiers = enemySoldier;
 
+        int close1enemy = enemyPosition + 1;
+        int close2enemy = enemyPosition - 1;
+
+        if (playerFirePower < 0) {
+            return currentPosition;
+        }
+
+        if (currentPosition == enemyPosition) {
+            enemySoldier += 6;
+        } else if (currentPosition == close1enemy) {
+            enemySoldier += 5;
+        } else if (currentPosition == close2enemy) {
+            enemySoldier += 5;
+        }
+        int enemySoldiersLeft = currentEnemySoldiers - enemySoldier;
+
+        System.out.println("You have killed: " + enemySoldiersLeft);
+        System.out.println("Enemy soldiers left: " + enemySoldier);
+        return enemySoldier;
+    }
     public int attackFirePower(int playerFirePower) {
         int dice = throwDice();
         System.out.println("You have rolled a: " + dice + " ");
 
         int firePower = dice * 100;
         System.out.println("You have used: " + firePower + " of your firepower");
+        int newFirePower = playerFirePower - firePower;
+        System.out.println("Current firepower remaining: " + newFirePower);
+        System.out.println();
+        return newFirePower;
+    }
+    public int enemyAttackFirePower(int playerFirePower) {
+        int dice = throwDice();
+        System.out.println("Enemy has rolled a: " + dice + " ");
+
+        int firePower = dice * 100;
+        System.out.println("Enemy has used: " + firePower + " of your firepower");
         int newFirePower = playerFirePower - firePower;
         System.out.println("Current firepower remaining: " + newFirePower);
         System.out.println();
